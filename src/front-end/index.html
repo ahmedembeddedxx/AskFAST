@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AskFAST</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        *
+        {
+            font-family: 'Fira Code', monospace;
+        }
+        body {
+            font-family: 'Fira Code', monospace;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #e5e5e5;
+        }
+        .chat-container {
+            width: 360px;
+            max-height: 80vh;
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+        }
+        .chat-header {
+            background-color: #4a90e2;
+            color: white;
+            padding: 12px;
+            font-size: 20px;
+            font-weight: 500;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .chat-header img.logo {
+            height: 28px;
+        }
+        .chat-header a.github-link {
+            color: white;
+            text-decoration: none;
+            font-size: 20px;
+        }
+        .chat-header a.github-link:hover {
+            color: #c2e0ff;
+        }
+        .chat-box {
+            flex: 1;
+            padding: 12px;
+            overflow-y: auto;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            flex-direction: column;
+        }
+        .input-container {
+            display: flex;
+            border-top: 1px solid #ddd;
+        }
+        .input-container input {
+            flex: 1;
+            border: none;
+            padding: 12px;
+            font-size: 16px;
+            color: #333;
+            border-bottom-left-radius: 8px;
+            border: 1px solid #ddd;
+            outline: none;
+        }
+        .input-container button {
+            border: none;
+            background-color: #4a90e2;
+            color: white;
+            padding: 12px;
+            cursor: pointer;
+            font-size: 16px;
+            border-bottom-right-radius: 8px;
+        }
+        .input-container button:hover {
+            background-color: #357abd;
+        }
+        .message {
+            margin-bottom: 12px;
+            max-width: 80%;
+            padding: 8px 12px;
+            border-radius: 8px;
+            word-wrap: break-word;
+        }
+        .user-message {
+            align-self: flex-end;
+            background-color: #007bff;
+            color: white;
+        }
+        .bot-message {
+            align-self: flex-start;
+            background-color: #f1f1f1;
+            color: #333;
+        }
+        .loading {
+            font-style: italic;
+            color: #888;
+            display: flex;
+            align-items: center;
+        }
+        .dots-container {
+            display: inline-block;
+            margin-left: 8px;
+        }
+
+        .dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background-color: #4a90e2;
+            border-radius: 50%;
+            margin: 0 2px;
+            animation: blink 1.4s infinite both;
+        }
+
+        .dot:nth-child(1) {
+            animation-delay: 0s;
+        }
+
+        .dot:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .dot:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes blink {
+            0%, 80%, 100% {
+                opacity: 0;
+            }
+            40% {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-header">
+            <div>AskFAST</div>
+            <a href="https://github.com/ahmedembeddedxx/UrduX" class="github-link" target="_blank">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 0-8 0v8a6 6 0 0 0 8 0V8zM10 9a3 3 0 0 1 4 0v6a3 3 0 0 1-4 0V9z"/><path d="M2 12h20"/><path d="M12 2v20"/></svg>
+            </a>
+        </div>
+        <div class="chat-box" id="chat-box">
+            <!-- Chat messages will be appended here -->
+        </div>
+        <div class="input-container">
+            <input type="text" id="user-input" placeholder="Type your message...">
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+
+    <script>
+        const url = 'https://5514393d1f37d1f83f.gradio.live/api/predict/';
+        
+        function appendMessage(message, isUser) {
+            const chatBox = document.getElementById('chat-box');
+            const messageElement = document.createElement('div');
+            messageElement.className = 'message ' + (isUser ? 'user-message' : 'bot-message');
+            messageElement.textContent = message;
+            chatBox.appendChild(messageElement);
+            chatBox.scrollTop = chatBox.scrollHeight; // Scroll to bottom
+        }
+
+        function showLoading() {
+            const chatBox = document.getElementById('chat-box');
+            const loadingElement = document.createElement('div');
+            loadingElement.className = 'message loading';
+            loadingElement.innerHTML = 'Cooking <span class="dots-container"><span class="dot"></span><span class="dot"></span><span class="dot"></span></span>';
+            chatBox.appendChild(loadingElement);
+            chatBox.scrollTop = chatBox.scrollHeight; // Scroll to bottom
+            return loadingElement;
+        }
+
+        function removeLoading(loadingElement) {
+            if (loadingElement) {
+                loadingElement.remove();
+            }
+        }
+
+        function sendMessage() {
+            const userInput = document.getElementById('user-input');
+            const message = userInput.value.trim();
+            if (message === '') return;
+
+            // Append user's message to chat
+            appendMessage(message, true);
+
+            // Show loading indicator
+            const loadingElement = showLoading();
+
+            // Send request to the server
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ data: [message] })
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Remove loading indicator and append bot's response to chat
+                removeLoading(loadingElement);
+                appendMessage(data.data[0], false);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                removeLoading(loadingElement);
+                appendMessage('Sorry, something went wrong.', false);
+            });
+
+            // Clear input field
+            userInput.value = '';
+        }
+
+        // Optional: Send message on Enter key press
+        document.getElementById('user-input').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                sendMessage();
+            }
+        });
+    </script>
+</body>
+</html>
