@@ -1,20 +1,122 @@
-## Welcome to UrduX
-
-UrduX is an innovative project focused on developing web applications and machine learning solutions for the Urdu language.
-
-## Collaborators
-
-Meet our talented team:
-- [Duaa Fatima](https://github.com/Duaa-Fatima)
-- [Dawood Tanvir](https://github.com/dawoodTanvir)
-- [Syeda Mahum](https://github.com/SyedaMahum)
-- [Ahmed Abdullah](https://github.com/ahmedembeddedx/)
-
+# AskFAST Chat Bot
 ## Overview
 
-Our goals for UrduX include:
-- Creating user-friendly web applications
-- Developing advanced machine learning models
-- Enhancing Urdu language processing and usage
+🎓 **AskFAST** is a chat bot designed to handle admission-related queries for FAST. It utilizes the powerful Mistral-7B language model to provide accurate and intelligent responses. 
 
-For any questions or contributions, please contact the collaborators.
+## Contributors
+
+- **Duaa Fatima**
+  - [GitHub Profile](https://github.com/Duaa-Fatima)
+  - [LinkedIn Profile](https://www.linkedin.com/in/duaa-fatima-3b03ab260/)
+
+- **Dawood Tanvir**
+  - [GitHub Profile](https://github.com/dawoodTanvir)
+  - [LinkedIn Profile](https://www.linkedin.com/in/dawood-tanvir-5a5365283/)
+
+- **Mahum Raza**
+  - [GitHub Profile](https://github.com/SyedaMahum)
+  - [LinkedIn Profile](https://www.linkedin.com/in/syeda-mahum-raza-17596928b/)
+
+- **Ahmed Abdullah**
+  - [GitHub Profile](https://github.com/ahmedembeddedxx)
+  - [LinkedIn Profile](https://www.linkedin.com/in/ahmed-abdullah)
+
+
+## Repository Link
+
+- [AskFAST GitHub Repository](https://github.com/ahmedembeddedxx/AskFAST)
+
+## Requirements
+
+- Python 3.8 or later
+- CUDA enabled GPU (for local runs)
+- Google Colab (for cloud runs)
+- Gradio (for creating interactive web interfaces)
+- Vercel (for deployment)
+
+## Setup and Installation
+
+1. **Clone the Repository**
+
+    ```bash
+    git clone https://github.com/ahmedembeddedxx/AskFAST.git
+    cd AskFAST
+    ```
+
+2. **Install Dependencies**
+
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+3. **Ensure CUDA is enabled**
+
+    If running locally, make sure CUDA is properly installed and configured. For running in Google Colab, ensure the notebook is set to use a GPU runtime (preferably T4 GPU).
+
+## Running the Chat Bot
+
+1. **Execute the API Script**
+
+    Navigate to the `src/scripts/` directory and run the `5_AskFAST_API.py` script:
+
+    ```bash
+    cd src/scripts
+    python 5_AskFAST_API.py
+    ```
+
+    Upon successful execution, a link similar to `<random-string>.gradio.live` will be generated.
+
+2. **Update the Web Application**
+
+    Copy the generated link and paste it in the `src/web-app/index.html` file, replacing the placeholder in the `<Button>` send tag.
+
+    ```html
+    <Button send="https://<random-string>.gradio.live">
+    ```
+
+3. **Run the Web Application**
+
+    You can run the application on localhost or deploy it on Vercel.
+
+    - **Localhost:**
+
+        Navigate to the web app directory and start a local server:
+
+        ```bash
+        cd src/web-app
+        python -m http.server
+        ```
+
+    - **Vercel:**
+
+        Follow the Vercel deployment guide to deploy your application.
+
+## Data
+
+A large amount of data is available in the `src/data` directory. This data was scraped using PyTesseract and is publicly available under the GNU and MIT licenses.
+
+- **Data Directory:** `src/data`
+- **Scripts for Data Scraping:** `src/scripts/`
+
+## License
+
+The data used in this project is publicly available under the GNU and MIT licenses.
+
+## Acknowledgments
+
+A big thanks to the following for their invaluable tools and support:
+
+- [Unsloth](https://unsloth.ai/) for their data scraping services.
+- [PyTesseract](https://github.com/madmaze/pytesseract) for optical character recognition.
+- [Gradio](https://gradio.app/) for creating interactive web interfaces.
+- [Hugging Face](https://huggingface.co/) for providing the Mistral-7B language model.
+
+## Demonstration Video
+
+Watch the demonstration video for a quick overview of the project:
+
+[![Watch the video](https://img.youtube.com/vi/Kd4OszKxlwc/0.jpg)](https://youtu.be/Kd4OszKxlwc)
+
+---
+
+Feel free to reach out to any of the contributors for questions or collaboration opportunities.
