@@ -1,7 +1,7 @@
 # AskFAST Chat Bot
 ## Overview
 
-The AskFAST project features a chat bot that utilizes advanced machine learning techniques to provide interactive responses. The chat bot is implemented in Python and can be run both locally and on the cloud. The data used for training and evaluation is publicly available and was scraped using PyTesseract.
+🎓 **AskFAST** is a chat bot designed to handle admission-related queries for FAST. It utilizes the powerful Mistral-7B language model to provide accurate and intelligent responses. 
 
 ## Contributors
 
@@ -51,7 +51,7 @@ The AskFAST project features a chat bot that utilizes advanced machine learning 
 
 3. **Ensure CUDA is enabled**
 
-    If running locally, make sure CUDA is properly installed and configured (not suggested at all). For running in Google Colab, ensure the notebook is set to use a GPU runtime (preferably T4 GPU).
+    If running locally, make sure CUDA is properly installed and configured. For running in Google Colab, ensure the notebook is set to use a GPU runtime (preferably T4 GPU).
 
 ## Running the Chat Bot
 
@@ -101,6 +101,15 @@ A large amount of data is available in the `src/data` directory. This data was s
 ## License
 
 The data used in this project is publicly available under the GNU and MIT licenses.
+
+## Acknowledgments
+
+A big thanks to the following for their invaluable tools and support:
+
+- [Unsloth](https://unsloth.ai/) for their data scraping services.
+- [PyTesseract](https://github.com/madmaze/pytesseract) for optical character recognition.
+- [Gradio](https://gradio.app/) for creating interactive web interfaces.
+- [Hugging Face](https://huggingface.co/) for providing the Mistral-7B language model.
 
 ## Demonstration Video
 
